@@ -1,0 +1,17 @@
+UpsertCustomerFunction:
+    name: ${self:service}_${self:provider.stage}_upsert_customer
+    description: Upserts a customer to your DynamoDB table
+    handler: services/lambda_upsert_customer.upsert_customer_handler
+    layers:
+      - { Ref: DependenciesLambdaLayer }
+    package: {}
+    environment:
+      aws_account_id: { Ref: AWS::AccountId }
+    events:
+      - http:
+          method: POST
+          path: /upsert-customer
+          private: true
+    iamRoleStatementsName: ${self:service}_${self:provider.stage}_role_upsert-customer
+    iamRoleStatements:
+      - ${file(iam/CustomersTableIAM.yml):CustomersTableIAM}

@@ -163,6 +163,3 @@ resources:
 
     ServerlessDeploymentBucket: ${file(resources/S3.yml):ServerlessDeploymentBucket}
     ServerlessDeploymentBucketPolicy: ${file(resources/S3.yml):ServerlessDeploymentBucketPolicy}
-
-    SummerSchoolS3Bucket: ${file(resources/S3.yml):SummerSchoolS3Bucket}
-    SummerSchoolS3BucketPolicy:  ${file(resources/S3.yml):SummerSchoolS3BucketPolicy}

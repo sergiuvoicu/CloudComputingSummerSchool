@@ -1,0 +1,11 @@
+CustomersTableIAM:
+  Effect: Allow
+  Action:
+    - dynamodb:GetItem
+    - dynamodb:BatchGetItem
+    - dynamodb:Query
+    - dynamodb:PutItem
+    - dynamodb:BatchWriteItem
+    - dynamodb:UpdateItem
+  Resource:
+    - arn:aws:dynamodb:${self:provider.region}:#{AWS::AccountId}:table/${self:service}_${self:provider.stage}_customers

@@ -1,0 +1,19 @@
+CustomersTable:
+  Type: AWS::DynamoDB::Table
+  Properties:
+    TableName: ${self:service}_${self:provider.stage}_customers
+    AttributeDefinitions:
+      - AttributeName: firstName
+        AttributeType: S
+      - AttributeName: lastName
+        AttributeType: S
+    KeySchema:
+      - AttributeName: firstName
+        KeyType: HASH
+      - AttributeName: lastName
+        KeyType: RANGE
+    BillingMode: PAY_PER_REQUEST
+    SSESpecification:
+      SSEEnabled: true
+      SSEType: KMS
+      KMSMasterKeyId: !Ref CMKDynamoDB

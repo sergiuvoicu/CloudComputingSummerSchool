@@ -10,6 +10,7 @@
     2. Or you can follow the steps described above
     3. Or you can install WSL and install the packages using WSL https://learn.microsoft.com/en-us/windows/wsl/install
 8. Check installation by direnv --version
+9. Install Postman
 
 **Note: For Windows always check environment variables list in order for the CLIs to be recognised in the terminal**
 
