@@ -52,6 +52,7 @@ package:
     - "!docs/**"
     - "!iam/**"
     - "!serverless_templates/**"
+    - "!resources/**"
     - "!venv/**"
     - "!.venv/**"
     - "!node_modules/**"
@@ -130,38 +131,38 @@ functions:
 
 resources:
   Resources:
-    APIGWCloudWatchRole: ${file(serverless_templates/APIGWCloudWatchRole.yml):ServerlessCloudWatchRole}
+    APIGWCloudWatchRole: ${file(resources/APIGWCloudWatchRole.yml):ServerlessCloudWatchRole}
 
-    CMKDynamoDB: ${file(serverless_templates/CMKDynamoDB.yml):CMKDynamoDB}
+    CMKDynamoDB: ${file(resources/CMKDynamoDB.yml):CMKDynamoDB}
     CMKDynamoDBAlias:
       Type: AWS::KMS::Alias
       Properties:
         AliasName: alias/summerschool-${self:provider.stage}/dynamodb
         TargetKeyId: !Ref CMKDynamoDB
 
-    CMKSecretsManager: ${file(serverless_templates/CMKSecretsManager.yml):CMKSecretsManager}
+    CMKSecretsManager: ${file(resources/CMKSecretsManager.yml):CMKSecretsManager}
     CMKSecretsManagerAlias:
       Type: AWS::KMS::Alias
       Properties:
         AliasName: alias/summerschool-${self:provider.stage}/secretsmanager
         TargetKeyId: !Ref CMKSecretsManager
 
-    CMKSQS: ${file(serverless_templates/CMKSQS.yml):CMKSQS}
+    CMKSQS: ${file(resources/CMKSQS.yml):CMKSQS}
     CMKSQSAlias:
       Type: AWS::KMS::Alias
       Properties:
         AliasName: alias/summerschool-${self:provider.stage}/sqs
         TargetKeyId: !Ref CMKSQS
 
-    CMKS3: ${file(serverless_templates/CMKS3.yml):CMKS3}
+    CMKS3: ${file(resources/CMKS3.yml):CMKS3}
     CMKS3Alias:
       Type: AWS::KMS::Alias
       Properties:
         AliasName: alias/summerschool-${self:provider.stage}/s3
         TargetKeyId: !Ref CMKS3
 
-    ServerlessDeploymentBucket: ${file(serverless_templates/S3.yml):ServerlessDeploymentBucket}
-    ServerlessDeploymentBucketPolicy: ${file(serverless_templates/S3.yml):ServerlessDeploymentBucketPolicy}
+    ServerlessDeploymentBucket: ${file(resources/S3.yml):ServerlessDeploymentBucket}
+    ServerlessDeploymentBucketPolicy: ${file(resources/S3.yml):ServerlessDeploymentBucketPolicy}
 
-    SummerSchoolS3Bucket: ${file(serverless_templates/S3.yml):SummerSchoolS3Bucket}
-    SummerSchoolS3BucketPolicy:  ${file(serverless_templates/S3.yml):SummerSchoolS3BucketPolicy}
+    SummerSchoolS3Bucket: ${file(resources/S3.yml):SummerSchoolS3Bucket}
+    SummerSchoolS3BucketPolicy:  ${file(resources/S3.yml):SummerSchoolS3BucketPolicy}

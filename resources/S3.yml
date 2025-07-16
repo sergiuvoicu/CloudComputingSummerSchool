@@ -27,17 +27,6 @@ SummerSchoolS3Bucket:
   Type: AWS::S3::Bucket
   Properties:
     BucketName: ${self:service}-${self:provider.stage}
-    # NotificationConfiguration:
-    #   QueueConfigurations:
-    #     - Event: s3:ObjectCreated:*
-    #       Queue: !GetAtt SFTPFilesQueue.Arn
-    #       Filter:
-    #         S3Key:
-    #           Rules:
-    #             - Name: prefix
-    #               Value: RAID/FilesToSend/IP_Orders_
-    #             - Name: suffix
-    #               Value: .gpg
     BucketEncryption:
       ServerSideEncryptionConfiguration:
         - ServerSideEncryptionByDefault:
