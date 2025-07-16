@@ -1,0 +1,45 @@
+CMKDynamoDB:
+  Type: AWS::KMS::Key
+  Properties:
+    Description: CMK used for the SummerSchool-${self:provider.stage} DybamoDB tables encryption
+    MultiRegion: false
+    EnableKeyRotation: true
+    PendingWindowInDays: 7
+    KeyPolicy:
+      Version: "2012-10-17"
+      Id: cmk-dynamodb-${self:provider.stage}
+      Statement:
+        - Sid: Allow access for Key Administrators
+          Effect: Allow
+          Resource: "*"
+          Principal:
+            AWS: 
+              - !Sub "arn:aws:iam::${AWS::AccountId}:user/test_user"
+              - !Sub "arn:aws:iam::${AWS::AccountId}:root"
+          Action:
+            - kms:Create*
+            - kms:Describe*
+            - kms:Enable*
+            - kms:List*
+            - kms:Put*
+            - kms:Update*
+            - kms:Revoke*
+            - kms:Disable*
+            - kms:Get*
+            - kms:Delete*
+            - kms:TagResource
+            - kms:UntagResource
+            - kms:ScheduleKeyDeletion
+            - kms:CancelKeyDeletion
+        - Sid: Enable DynamoDB use of the key
+          Effect: Allow
+          Principal:
+            AWS: "*"
+          Action:
+            - kms:Encrypt
+            - kms:Decrypt
+          Resource: "*"
+          Condition:
+            StringEquals:
+              kms:CallerAccount: !Ref AWS::AccountId
+              kms:ViaService: !Sub "dynamodb.${AWS::Region}.amazonaws.com"

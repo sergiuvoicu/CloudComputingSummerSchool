@@ -1,0 +1,7 @@
+-r dependencies/requirements.txt
+
+pytest-flake8==1.3.0
+pytest-watch==4.2.0
+pytest-cov==6.2.1
+pytest-timeout==2.4.0
+pytest-order==1.3.0

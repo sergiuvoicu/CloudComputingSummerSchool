@@ -1,0 +1,66 @@
+ServerlessDeploymentBucket:
+  Type: AWS::S3::Bucket
+  Properties:
+    LoggingConfiguration:
+      DestinationBucketName: "${param:s3LoggingBucket}"
+      LogFilePrefix: 's3\${self:provider.stage}-serverlessDeployBucketEngine'
+
+ServerlessDeploymentBucketPolicy:
+  Type: AWS::S3::BucketPolicy
+  Properties:
+    PolicyDocument:
+      Statement:
+        - Sid: EnforceHttpsAlways
+          Effect: Deny
+          Principal: "*"
+          Action: "*"
+          Resource:
+            - "arn:aws:s3:::#{ServerlessDeploymentBucket}"
+            - "arn:aws:s3:::#{ServerlessDeploymentBucket}/*"
+          Condition:
+            Bool:
+              aws:SecureTransport: "false"
+    Bucket:
+      Ref: ServerlessDeploymentBucket
+
+SummerSchoolS3Bucket:
+  Type: AWS::S3::Bucket
+  Properties:
+    BucketName: ${self:service}-${self:provider.stage}
+    # NotificationConfiguration:
+    #   QueueConfigurations:
+    #     - Event: s3:ObjectCreated:*
+    #       Queue: !GetAtt SFTPFilesQueue.Arn
+    #       Filter:
+    #         S3Key:
+    #           Rules:
+    #             - Name: prefix
+    #               Value: RAID/FilesToSend/IP_Orders_
+    #             - Name: suffix
+    #               Value: .gpg
+    BucketEncryption:
+      ServerSideEncryptionConfiguration:
+        - ServerSideEncryptionByDefault:
+            SSEAlgorithm: "aws:kms"
+            KMSMasterKeyID:
+              Fn::GetAtt: [CMKS3, Arn]
+          BucketKeyEnabled: true
+
+SummerSchoolS3BucketPolicy:
+  Type: AWS::S3::BucketPolicy
+  DependsOn: ServerlessDeploymentBucket
+  Properties:
+    PolicyDocument:
+      Statement:
+        - Sid: EnforceHttpsAlways
+          Effect: Deny
+          Principal: "*"
+          Action: "*"
+          Resource:
+            - "arn:aws:s3:::#{SummerSchoolS3Bucket}"
+            - "arn:aws:s3:::#{SummerSchoolS3Bucket}/*"
+          Condition:
+            Bool:
+              aws:SecureTransport: "false"
+    Bucket:
+      Ref: SummerSchoolS3Bucket

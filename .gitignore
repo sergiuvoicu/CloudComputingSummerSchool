@@ -1,0 +1,5 @@
+node_modules/
+dependencies/python
+.envrc
+.direnv
+.serverless

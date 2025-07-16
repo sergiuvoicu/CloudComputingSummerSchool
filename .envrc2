@@ -1,0 +1,10 @@
+PATH_add local_bin
+layout python ~/.pyenv/shims/python3
+ 
+ 
+export PROJ_STAGE=stage
+export PATH="/usr/local/bin/:$PATH"
+export AWS_DEFAULT_REGION=region
+export AWS_REGION=region
+export environment=environment
+export aws_account_id=account_id

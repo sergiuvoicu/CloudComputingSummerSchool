@@ -1,0 +1,167 @@
+service: summerschool
+useDotenv: true
+configValidationMode: warn
+
+provider:
+  name: aws
+  stage: ${opt:stage}
+  region: ${opt:region}
+  deploymentMethod: direct
+  runtime: python3.11
+  memorySize: 512
+  timeout: 5
+
+  stackTags: &TAGS
+    Project: "Summer School"
+    TaggingVersion: "V1.0"
+  
+  environment:
+    environment: ${self:service}_${self:provider.stage}_
+
+  apiGateway:
+    shouldStartNameWithService: true
+    metrics: true
+    apiKeys:
+      - name: ${self:service}_${self:provider.stage}_apikey
+        description: "Key for ${self:provider.stage}"
+    usagePlan:
+      throttle:
+        burstLimit: 200
+        rateLimit: 100
+    resourcePolicy:
+      - Effect: Allow
+        Principal: "*"
+        Action: "execute-api:Invoke"
+        Resource: !Sub "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:*/*"
+
+  logs:
+    restApi:
+      fullExecutionData: true
+      accessLogging: true
+      executionLogging: true
+
+
+package:
+  excludeDevDependencies: false
+  individually: false
+  patterns:
+    - "!dependencies/**"
+    - "!tmp/**"
+    - "!local_bin/**"
+    - "!share/**"
+    - "!docs/**"
+    - "!iam/**"
+    - "!serverless_templates/**"
+    - "!venv/**"
+    - "!.venv/**"
+    - "!node_modules/**"
+    - "!.pytest_cache/**"
+    - "!cov_html/**"
+    - "!.direnv/**"
+    - assets/**
+    - services/**
+    - "!**/__pycache__/**"
+    - "!local-scripts/**"
+    - "!serverless_plugins/**"
+    - "!package-lock.json"
+    - "!package.json"
+
+plugins:
+  - serverless-apigw-binary
+  - serverless-cloudformation-sub-variables
+  - serverless-iam-roles-per-function
+  - serverless-prune-plugin
+  - serverless-python-requirements
+  - serverless-s3-remover
+
+params:
+  default:
+    s3LoggingBucket: "summerschool-s3logging"
+
+custom:
+  prune:
+    automatic: true
+    includeLayers: true
+    number: 10
+
+  pythonRequirements:
+    useDownloadCache: true
+    useStaticCache: true
+
+  defaultStage: dev
+  defaultRegion: eu-north-1
+  stage: ${opt:stage, self:custom.defaultStage}
+  region: ${opt:region, self:custom.defaultRegion}
+
+  remover:
+    buckets:
+      - ${self:service}-${self:provider.stage}
+
+  apigwBinary:
+    types:
+      - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+      - text/plain
+
+layers:
+  dependencies:
+    path: dependencies
+    name: ${self:service}_${self:provider.stage}_dependencies
+    description: Application dependencies
+    compatibleRuntimes:
+      - python3.11
+    retain: false
+
+functions:
+  HelloWorldFunction:
+    name: ${self:service}_${self:provider.stage}_hello-world
+    description: Hi there!
+    handler: services/lambda_hello_world.hello_world_handler
+    layers:
+      - { Ref: DependenciesLambdaLayer }
+    package: {}
+    environment:
+      aws_account_id: { Ref: AWS::AccountId }
+    events:
+      - http:
+          method: GET
+          path: /hello
+          private: true
+    iamRoleStatementsName: ${self:service}_${self:provider.stage}_role_hello-world
+
+resources:
+  Resources:
+    APIGWCloudWatchRole: ${file(serverless_templates/APIGWCloudWatchRole.yml):ServerlessCloudWatchRole}
+
+    CMKDynamoDB: ${file(serverless_templates/CMKDynamoDB.yml):CMKDynamoDB}
+    CMKDynamoDBAlias:
+      Type: AWS::KMS::Alias
+      Properties:
+        AliasName: alias/summerschool-${self:provider.stage}/dynamodb
+        TargetKeyId: !Ref CMKDynamoDB
+
+    CMKSecretsManager: ${file(serverless_templates/CMKSecretsManager.yml):CMKSecretsManager}
+    CMKSecretsManagerAlias:
+      Type: AWS::KMS::Alias
+      Properties:
+        AliasName: alias/summerschool-${self:provider.stage}/secretsmanager
+        TargetKeyId: !Ref CMKSecretsManager
+
+    CMKSQS: ${file(serverless_templates/CMKSQS.yml):CMKSQS}
+    CMKSQSAlias:
+      Type: AWS::KMS::Alias
+      Properties:
+        AliasName: alias/summerschool-${self:provider.stage}/sqs
+        TargetKeyId: !Ref CMKSQS
+
+    CMKS3: ${file(serverless_templates/CMKS3.yml):CMKS3}
+    CMKS3Alias:
+      Type: AWS::KMS::Alias
+      Properties:
+        AliasName: alias/summerschool-${self:provider.stage}/s3
+        TargetKeyId: !Ref CMKS3
+
+    ServerlessDeploymentBucket: ${file(serverless_templates/S3.yml):ServerlessDeploymentBucket}
+    ServerlessDeploymentBucketPolicy: ${file(serverless_templates/S3.yml):ServerlessDeploymentBucketPolicy}
+
+    SummerSchoolS3Bucket: ${file(serverless_templates/S3.yml):SummerSchoolS3Bucket}
+    SummerSchoolS3BucketPolicy:  ${file(serverless_templates/S3.yml):SummerSchoolS3BucketPolicy}
