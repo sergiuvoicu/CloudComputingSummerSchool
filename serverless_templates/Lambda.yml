@@ -1,5 +1,5 @@
 UpsertCustomerFunction:
-    name: ${self:service}_${self:provider.stage}_upsert_customer
+    name: ${self:service}_${self:provider.stage}_upsert-customer
     description: Upserts a customer to your DynamoDB table
     handler: services/lambda_upsert_customer.upsert_customer_handler
     layers:
@@ -15,3 +15,25 @@ UpsertCustomerFunction:
     iamRoleStatementsName: ${self:service}_${self:provider.stage}_role_upsert-customer
     iamRoleStatements:
       - ${file(iam/CustomersTableIAM.yml):CustomersTableIAM}
+
+
+GenerateReportFunction:
+    name: ${self:service}_${self:provider.stage}_generate-report
+    description: Generates a report based on the customers data in DynamoDB and uploads it to S3
+    handler: services/lambda_generate_report.generate_report_handler
+    layers:
+      - { Ref: DependenciesLambdaLayer }
+    package: {}
+    environment:
+      aws_account_id: { Ref: AWS::AccountId }
+      s3_bucket: ${self:service}_${self:provider.stage}
+      remote_path: SummerSchool/Reports
+    events:
+      - http:
+          method: GET
+          path: /generate-report
+          private: true
+    iamRoleStatementsName: ${self:service}_${self:provider.stage}_role_generate-report
+    iamRoleStatements:
+      - ${file(iam/CustomersTableIAM.yml):CustomersTableIAM}
+      - ${file(iam/S3BucketIAM.yml):S3BucketIAM}

@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "0bc67fcd-166d-4065-b64b-bca34c09321a",
+		"name": "Summer School",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "36538342"
+	},
+	"item": [
+		{
+			"name": "Hello World",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-Api-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{API_ID}}.execute-api.eu-north-1.amazonaws.com/srg/hello",
+					"protocol": "https",
+					"host": [
+						"{{API_ID}}",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"srg",
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upsert Customer",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-Api-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Andrei\",\n    \"lastName\": \"Barbu\",\n    \"age\": 15,\n    \"country\": \"Romania\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://{{API_ID}}.execute-api.eu-north-1.amazonaws.com/srg/upsert-customer",
+					"protocol": "https",
+					"host": [
+						"{{API_ID}}",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"srg",
+						"upsert-customer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Generate Report",
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{API_KEY}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "X-Api-Key",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://{{API_ID}}.execute-api.eu-north-1.amazonaws.com/srg/generate-report",
+					"protocol": "https",
+					"host": [
+						"{{API_ID}}",
+						"execute-api",
+						"eu-north-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"srg",
+						"generate-report"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

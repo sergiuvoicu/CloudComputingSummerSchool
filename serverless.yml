@@ -17,6 +17,7 @@ provider:
   
   environment:
     environment: ${self:service}_${self:provider.stage}_
+    aws_account_id: { Ref: AWS::AccountId }
 
   apiGateway:
     shouldStartNameWithService: true
@@ -120,8 +121,6 @@ functions:
     layers:
       - { Ref: DependenciesLambdaLayer }
     package: {}
-    environment:
-      aws_account_id: { Ref: AWS::AccountId }
     events:
       - http:
           method: GET

@@ -23,7 +23,9 @@ def upsert_customer_handler(event, _):
 
     response = {
         "statusCode": HTTPStatus.OK,
-        "body": "Customer data inserted successfully!"
+        "body": json.dumps({
+            "message": "Customer data inserted successfully!"
+        })
     }
     Logger().info(response)
     return response
