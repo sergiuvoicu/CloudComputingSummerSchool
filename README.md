@@ -6,19 +6,19 @@
 5. Install aws CLI https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html
 6. Check installation by aws --version
 7. Install direnv https://gist.github.com/rmtuckerphx/4ace28c1605300462340ffa7b7001c6d
-  1. For Windows you can use `winget direnv` after you install winget https://learn.microsoft.com/en-us/windows/package-manager/winget/
-  2. Or you can follow the steps described above
-  3. Or you can install WSL and install the packages using WSL https://learn.microsoft.com/en-us/windows/wsl/install
+    1. For Windows you can use `winget direnv` after you install winget https://learn.microsoft.com/en-us/windows/package-manager/winget/
+    2. Or you can follow the steps described above
+    3. Or you can install WSL and install the packages using WSL https://learn.microsoft.com/en-us/windows/wsl/install
 8. Check installation by direnv --version
 
-** Note: For Windows always check environment variables list in order for the CLIs to be recognised in the terminal **
+**Note: For Windows always check environment variables list in order for the CLIs to be recognised in the terminal**
 
 # Setup
 1. git clone
 2. npm install
 3. Check installation by serverless --version
 4. Rename .envrc2 to .envrc
-5. Execute direnv allow
+5. Run direnv allow in the terminal
 
 Expected outcome:
 ```
