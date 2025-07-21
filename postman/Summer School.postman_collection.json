@@ -27,7 +27,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://{{API_ID}}.execute-api.eu-north-1.amazonaws.com/srg/hello",
+					"raw": "https://{{API_ID}}.execute-api.eu-north-1.amazonaws.com/{{STAGE}}/hello",
 					"protocol": "https",
 					"host": [
 						"{{API_ID}}",
@@ -37,7 +37,7 @@
 						"com"
 					],
 					"path": [
-						"srg",
+						"{{STAGE}}",
 						"hello"
 					]
 				}
@@ -66,7 +66,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"firstName\": \"Andrei\",\n    \"lastName\": \"Barbu\",\n    \"age\": 15,\n    \"country\": \"Romania\"\n}",
+					"raw": "{\n    \"firstName\": \"Andrei\",\n    \"lastName\": \"Enescu\",\n    \"age\": 15,\n    \"country\": \"Romania\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -74,7 +74,7 @@
 					}
 				},
 				"url": {
-					"raw": "https://{{API_ID}}.execute-api.eu-north-1.amazonaws.com/srg/upsert-customer",
+					"raw": "https://{{API_ID}}.execute-api.eu-north-1.amazonaws.com/{{STAGE}}/upsert-customer",
 					"protocol": "https",
 					"host": [
 						"{{API_ID}}",
@@ -84,7 +84,7 @@
 						"com"
 					],
 					"path": [
-						"srg",
+						"{{STAGE}}",
 						"upsert-customer"
 					]
 				}
@@ -112,7 +112,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "https://{{API_ID}}.execute-api.eu-north-1.amazonaws.com/srg/generate-report",
+					"raw": "https://{{API_ID}}.execute-api.eu-north-1.amazonaws.com/{{STAGE}}/generate-report",
 					"protocol": "https",
 					"host": [
 						"{{API_ID}}",
@@ -122,7 +122,7 @@
 						"com"
 					],
 					"path": [
-						"srg",
+						"{{STAGE}}",
 						"generate-report"
 					]
 				}

@@ -60,6 +60,8 @@ package:
     - "!.pytest_cache/**"
     - "!cov_html/**"
     - "!.direnv/**"
+    - "!aws/**"
+    - "!postman/**"
     - assets/**
     - services/**
     - "!**/__pycache__/**"
@@ -131,34 +133,6 @@ functions:
 resources:
   Resources:
     APIGWCloudWatchRole: ${file(resources/APIGWCloudWatchRole.yml):ServerlessCloudWatchRole}
-
-    CMKDynamoDB: ${file(resources/CMKDynamoDB.yml):CMKDynamoDB}
-    CMKDynamoDBAlias:
-      Type: AWS::KMS::Alias
-      Properties:
-        AliasName: alias/summerschool-${self:provider.stage}/dynamodb
-        TargetKeyId: !Ref CMKDynamoDB
-
-    CMKSecretsManager: ${file(resources/CMKSecretsManager.yml):CMKSecretsManager}
-    CMKSecretsManagerAlias:
-      Type: AWS::KMS::Alias
-      Properties:
-        AliasName: alias/summerschool-${self:provider.stage}/secretsmanager
-        TargetKeyId: !Ref CMKSecretsManager
-
-    CMKSQS: ${file(resources/CMKSQS.yml):CMKSQS}
-    CMKSQSAlias:
-      Type: AWS::KMS::Alias
-      Properties:
-        AliasName: alias/summerschool-${self:provider.stage}/sqs
-        TargetKeyId: !Ref CMKSQS
-
-    CMKS3: ${file(resources/CMKS3.yml):CMKS3}
-    CMKS3Alias:
-      Type: AWS::KMS::Alias
-      Properties:
-        AliasName: alias/summerschool-${self:provider.stage}/s3
-        TargetKeyId: !Ref CMKS3
 
     ServerlessDeploymentBucket: ${file(resources/S3.yml):ServerlessDeploymentBucket}
     ServerlessDeploymentBucketPolicy: ${file(resources/S3.yml):ServerlessDeploymentBucketPolicy}
