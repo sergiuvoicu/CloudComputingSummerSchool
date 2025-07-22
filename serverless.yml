@@ -52,6 +52,7 @@ package:
     - "!share/**"
     - "!docs/**"
     - "!iam/**"
+    - "!images/**"
     - "!serverless_templates/**"
     - "!resources/**"
     - "!venv/**"
