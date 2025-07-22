@@ -20,7 +20,15 @@
     2. `wsl --install -d Ubuntu-20.04`
     3. Install the WSL extension for VSCode - Optional
     4. Open a terminal and check installation by `wslconfig /l`
-5. Go to VSCode and open a WSL terminal. If it does not work due to trying to open it using bash, go to Users/<user>/Roaming/AppData/Code/settings.json and paste there
+5. Go to VSCode and open a WSL terminal. If it does not work due to trying to open it using bash, go to C/Users/<user>/     AppData/Roaming/Code/User/settings.json and there paste:
+```
+    "terminal.integrated.profiles.windows": {
+        "Ubuntu-20.04": {
+            "path": "C:\\Windows\\System32\\wsl.exe",
+            "args": ["-d", "Ubuntu-20.04"]
+        }
+    }
+```
 6. Open the newly configured terminal
 7. Install Node through NVM https://learn.microsoft.com/en-us/windows/dev-environment/javascript/nodejs-on-wsl
     1. `sudo apt-get install curl`
@@ -45,7 +53,7 @@
     4. `echo 'eval "$(pyenv init - bash)"' >> ~/.bashrc`
     5. `sudo apt-get update`
     6. `sudo apt-get upgrade`
-    7. `sudo apt-get install build-essential`
+    7. `sudo apt install build-essential curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev`
     8. `pyenv install 3.11.2`
     9. `pyenv global 3.11.2`
 11. Reopen the terminal and check installation by `python --version`
@@ -58,13 +66,15 @@
     3. Fill in with `eu-north-1`
     4. FIll in with `json`
 3. Check installation by `./node_modules/.bin/serverless --version`
-4. Optional: npm install -g serverless@3.40,0
+4. Optional: npm install -g serverless@3.40.0
 5. Rename .envrc2 to .envrc
     1. Set PROJ_NAME=<your-stack-name>
     2. Set AWS_DEFAULT_REGION=eu-north-1
     3. Set AWS_REGION=eu-north-1
     4. Set environment=summerschool_<your-stack-name>_
     5. Set aws_account_id=<your_account_id>
+5. `sudo apt-get install dos2unix`
+6. `dos2unix .envrc`
 5. Run direnv allow in the terminal
 
 Expected outcome:
