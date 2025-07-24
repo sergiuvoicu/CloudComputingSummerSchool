@@ -131,10 +131,9 @@ functions:
           private: true
     iamRoleStatementsName: ${self:service}_${self:provider.stage}_role_hello-world
 
-  # Write the Lambda function which inserts data in Customers table below
+  # Write the Lambda function which inserts data in Customers table below. Hint: Check serverless_templates/
 
-
-  # Write the Lambda function which generates a report based on the data in Customers table below
+  # Write the Lambda function which generates a report based on the data in Customers table below. Hint: Check serverless_templates/
 
 resources:
   Resources:
@@ -143,6 +142,7 @@ resources:
     ServerlessDeploymentBucket: ${file(resources/S3.yml):ServerlessDeploymentBucket}
     ServerlessDeploymentBucketPolicy: ${file(resources/S3.yml):ServerlessDeploymentBucketPolicy}
 
-    # Link SummerSchool S3 Bucket and SummerSchool S3 Bucket Policy below 
-    
-    # Link Customers table below
+    # Link SummerSchool S3 Bucket and SummerSchool S3 Bucket Policy below. Hint: Check serverless_templates/
+
+    # Link Customers table below. Hint: Check serverless_templates/
+

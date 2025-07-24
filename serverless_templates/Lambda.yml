@@ -26,7 +26,7 @@ GenerateReportFunction:
     package: {}
     environment:
       aws_account_id: { Ref: AWS::AccountId }
-      s3_bucket: ${self:service}_${self:provider.stage}
+      s3_bucket_name: ${self:service}-${self:provider.stage}
       remote_path: SummerSchool/Reports
     events:
       - http:
