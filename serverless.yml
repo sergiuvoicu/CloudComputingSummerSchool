@@ -77,7 +77,7 @@ plugins:
   - serverless-iam-roles-per-function
   - serverless-prune-plugin
   - serverless-python-requirements
-  - serverless-s3-remover
+  - serverless-s3-cleaner
 
 params:
   default:
@@ -98,7 +98,7 @@ custom:
   stage: ${opt:stage, self:custom.defaultStage}
   region: ${opt:region, self:custom.defaultRegion}
 
-  remover:
+  serverless-s3-cleaner:
     buckets:
       - ${self:service}-${self:provider.stage}
 
