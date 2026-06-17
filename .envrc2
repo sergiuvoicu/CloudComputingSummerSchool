@@ -3,7 +3,7 @@ layout python ~/.pyenv/shims/python
 
 export PROJ_STAGE=stage
 export PATH="/usr/local/bin/:$PATH"
-export AWS_DEFAULT_REGION=region
-export AWS_REGION=region
+export AWS_DEFAULT_REGION="eu-north-1"
+export AWS_REGION="eu-north-1"
 export environment=environment
 export aws_account_id=account_id
