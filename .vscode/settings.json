@@ -1,0 +1,10 @@
+{
+    "terminal.integrated.shellIntegration.enabled": false,
+    "terminal.integrated.profiles.windows": {
+        "WSL": {
+            "path": "C:\\WINDOWS\\System32\\wsl.exe",
+            "args": [ ],
+            "icon": "terminal-ubuntu"
+        }
+    },
+}

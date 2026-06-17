@@ -6,21 +6,19 @@
   "directories": {
     "test": "test"
   },
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "./node_modules/.bin/serverless offline start --config lambda_functions/serverless.yml --stage test --region eu-west-1 --apiKey 123456789",
-    "debug": "export SLS_DEBUG=* && node --inspect ./node_modules/.bin/serverless offline start --config lambda_functions/serverless.yml --stage test --region eu-west-1 --apiKey 123456789"
-  },
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "serverless": "^3.32.2",
-    "serverless-apigw-binary": "^0.4.4",
+    "serverless": "^3.40.0",
     "serverless-cloudformation-sub-variables": "^0.2.1",
-    "serverless-dependson-plugin": "^1.1.2",
     "serverless-iam-roles-per-function": "^3.2.0",
     "serverless-prune-plugin": "^2.0.2",
-    "serverless-python-requirements": "6.0.0",
     "serverless-s3-cleaner": "2.0.2"
+  },
+  "overrides": {
+    "uuid": "^14.0.0",
+    "tar": "^7.5.16",
+    "js-yaml": "^4.2.0",
+    "file-type": "^22.0.1"
   }
 }

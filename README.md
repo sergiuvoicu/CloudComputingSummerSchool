@@ -54,12 +54,14 @@
     5. `sudo apt-get update`
     6. `sudo apt-get upgrade`
     7. `sudo apt install build-essential curl libbz2-dev libffi-dev liblzma-dev libncursesw5-dev libreadline-dev libsqlite3-dev libssl-dev libxml2-dev libxmlsec1-dev llvm make tk-dev wget xz-utils zlib1g-dev`
-    8. `pyenv install 3.11.2`
-    9. `pyenv global 3.11.2`
+    8. `pyenv install 3.13.5`
+    9. `pyenv global 3.13.5`
 11. Reopen the terminal and check installation by `python --version`
+12. Install uv https://docs.astral.sh/uv/guides/install-python/
+    1. curl -LsSf https://astral.sh/uv/install.sh | sh
 
 # Setup
-1. npm install
+1. npm ci
 2. `aws configure`
     1. Fill in with the provided Access Key
     2. Fill in with the provided Secret Access Key
@@ -83,8 +85,13 @@ direnv allow
 direnv: loading ~/Documents/SummerSchoolCloudComputing/.envrc
 direnv: export +AWS_DEFAULT_REGION +AWS_REGION +PROJ_STAGE +VIRTUAL_ENV +aws_account_id +environment ~PATH ~XPC_SERVICE_NAME
 ```
-6. pip install -r dependencies/requirements.txt -t dependencies/python/lib/python3.11/site-packages
-7. pip install -r requirements-dev.txt
+6. uv venv dependencies/python --no-managed-python
+7. source dependencies/python/bin/activate
+8. uv sync --active --locked --no-managed-python
+9. deactivate
+10. uv venv --no-managed-python
+11. source .venv/bin/activate
+12. uv sync --active --locked --no-managed-python
 
 
 # Usage

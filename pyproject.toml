@@ -1,0 +1,11 @@
+[project]
+name="summerschool"
+requires-python=">=3.13"
+version="1.0"
+dependencies = [
+    "aws-lambda-powertools==3.29.0",
+    "boto3==1.43.31",
+    "requests==2.34.2",
+    "dynamodb-json==1.4.2",
+    "dacite==1.9.2",
+]
