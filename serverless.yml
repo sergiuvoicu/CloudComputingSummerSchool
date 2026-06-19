@@ -73,7 +73,7 @@ plugins:
 
 params:
   default:
-    s3LoggingBucket: "summerschool-s3logging-virgil993"
+    s3LoggingBucket: "summerschool-s3logging"
 
 custom:
   prune:
