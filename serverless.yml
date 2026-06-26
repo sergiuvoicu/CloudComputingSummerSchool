@@ -1,7 +1,6 @@
 service: summerschool
 useDotenv: true
-configValidationMode: warn
-
+configValidationMode: off
 provider:
   name: aws
   stage: ${opt:stage}

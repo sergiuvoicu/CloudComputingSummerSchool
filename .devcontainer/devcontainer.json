@@ -1,0 +1,43 @@
+// Cloud Computing lab devcontainer.
+// Pairs with the toolchain Dockerfile (Python 3.13 + Node 20 + uv + AWS CLI).
+{
+  "name": "Cloud Computing Lab",
+
+  // Primary: the prebuilt image published to GHCR in step 3.
+  // Replace REPLACE_ME with your GHCR owner/namespace.
+  "image": "ghcr.io/virgil993/ccss-devcontainer:1.0",
+
+  // Local-build alternative (comment out "image" above and use this instead):
+  // "build": { "dockerfile": "Dockerfile" },
+
+  // Cheapest machine = least Codespaces quota burn. 2-core is plenty here.
+  "hostRequirements": { "cpus": 2 },
+
+  // Region is fixed by the repo. AWS credentials are NOT set here:
+  // in Codespaces, secrets named AWS_ACCESS_KEY_ID / AWS_SECRET_ACCESS_KEY
+  // are injected automatically as env vars (see the pre-course checklist).
+  "containerEnv": {
+    "AWS_DEFAULT_REGION": "eu-north-1",
+    "AWS_REGION": "eu-north-1"
+  },
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "redhat.vscode-yaml",
+        "amazonwebservices.aws-toolkit-vscode"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "files.eol": "\n"
+      }
+    }
+  },
+
+  // Installs JS + Python deps and builds the Lambda layer (see script).
+  "postCreateCommand": "bash .devcontainer/post-create.sh",
+
+  "remoteUser": "vscode"
+}
