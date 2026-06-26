@@ -4,8 +4,7 @@
   "name": "Cloud Computing Lab",
 
   // Primary: the prebuilt image published to GHCR in step 3.
-  // Replace REPLACE_ME with your GHCR owner/namespace.
-  "image": "ghcr.io/virgil993/ccss-devcontainer:1.0",
+  "image": "ghcr.io/sergiuvoicu/ccss-devcontainer:1.0",
 
   // Local-build alternative (comment out "image" above and use this instead):
   // "build": { "dockerfile": "Dockerfile" },
