@@ -125,8 +125,44 @@ functions:
     iamRoleStatementsName: ${self:service}_${self:provider.stage}_role_hello-world
 
   # Write the Lambda function which inserts data in Customers table below. Hint: Check serverless_templates/
-
+  UpsertCustomerFunction:
+    name: ${self:service}_${self:provider.stage}_upsert-customer
+    description: Upserts a customer to your DynamoDB table
+    handler: services/lambda_upsert_customer.upsert_customer_handler
+    layers:
+      - { Ref: DependenciesLambdaLayer }
+    package: {}
+    environment:
+      aws_account_id: { Ref: AWS::AccountId }
+    events:
+      - http:
+          method: POST
+          path: /upsert-customer
+          private: true
+    iamRoleStatementsName: ${self:service}_${self:provider.stage}_role_upsert-customer
+    iamRoleStatements:
+      - ${file(iam/CustomersTableIAM.yml):CustomersTableIAM}
   # Write the Lambda function which generates a report based on the data in Customers table below. Hint: Check serverless_templates/
+  GenerateReportFunction:
+    name: ${self:service}_${self:provider.stage}_generate-report
+    description: Generates a report based on the customers data in DynamoDB and uploads it to S3
+    handler: services/lambda_generate_report.generate_report_handler
+    layers:
+      - { Ref: DependenciesLambdaLayer }
+    package: {}
+    environment:
+      aws_account_id: { Ref: AWS::AccountId }
+      s3_bucket_name: ${self:service}-${self:provider.stage}
+      remote_path: SummerSchool/Reports
+    events:
+      - http:
+          method: GET
+          path: /generate-report
+          private: true
+    iamRoleStatementsName: ${self:service}_${self:provider.stage}_role_generate-report
+    iamRoleStatements:
+      - ${file(iam/CustomersTableIAM.yml):CustomersTableIAM}
+      - ${file(iam/S3BucketIAM.yml):S3BucketIAM}
 
 resources:
   Resources:
@@ -135,6 +171,10 @@ resources:
     ServerlessDeploymentBucketPolicy: ${file(resources/S3.yml):ServerlessDeploymentBucketPolicy}
 
     # Link SummerSchool S3 Bucket and SummerSchool S3 Bucket Policy below. Hint: Check serverless_templates/
+    SummerSchoolS3Bucket: ${file(serverless_templates/S3.yml):SummerSchoolS3Bucket}
+    SummerSchoolS3BucketPolicy: ${file(serverless_templates/S3.yml):SummerSchoolS3BucketPolicy}
+
 
     # Link Customers table below. Hint: Check serverless_templates/
+    CustomersTable: ${file(serverless_templates/CustomersTable.yml):CustomersTable}
 
