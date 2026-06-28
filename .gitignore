@@ -6,4 +6,3 @@ aws
 .direnv
 .serverless
 aws/
-scripts/
