@@ -16,7 +16,7 @@
 ## Step 1 - Add your AWS keys as Codespaces secrets
 
 Do this **before** Step 2. Names must match exactly (uppercase).
-1. Access `https://d-c3676bb7d8.awsapps.com/start` and login with the configured profile
+1. Access `https://ssoins-65082f5cc24fe672.portal.eu-north-1.app.aws` and login with the configured profile
 2. Copy the Access Key ID, Secret Access Key and Session Token by opening "Access keys"
     ![alt text](images/login_to_account.png)
     ![alt text](images/login_secrets.png)
