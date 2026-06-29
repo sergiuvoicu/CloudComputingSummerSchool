@@ -1,45 +1,55 @@
-# Cloud Computing Lab — Student Setup Guide
+# Cloud Computing Lab - Student Setup Guide
 
 ## Prerequisites
 
-- A **GitHub account** — sign up at https://github.com/signup
-- Your **AWS access keys** (Access Key ID + Secret Access Key) — provided by your instructor
-- **Postman** installed — download at https://www.postman.com/downloads/
+- A **GitHub account** - sign up at https://github.com/signup
+- Your **AWS access keys** (Access Key ID + Secret Access Key) - provided by your instructor
+- **Postman** installed - download at https://www.postman.com/downloads/
 - The **course repository** link: https://github.com/sergiuvoicu/CloudComputingSummerSchool
-- A **unique stage name** within the class — recommended: first 3 letters of your first
+- A **unique stage name** within the class - recommended: first 3 letters of your first
   name + first 3 letters of your last name (e.g. Sergiu Voicu → `servoi`)
+- Access the mail sent to you with the invitation to register to the AWS Account
+- Configure your profile
 
 ---
 
-## Step 1 — Add your AWS keys as Codespaces secrets
+## Step 1 - Add your AWS keys as Codespaces secrets
 
 Do this **before** Step 2. Names must match exactly (uppercase).
+1. Access `https://d-c3676bb7d8.awsapps.com/start` and login with the configured profile
+2. Copy the Access Key ID, Secret Access Key and Session Token by opening "Access keys"
+    ![alt text](images/login_to_account.png)
+    ![alt text](images/login_secrets.png)
 
-1. Go to https://github.com/settings/codespaces
-2. **Codespaces secrets** → **New secret**
+3. Go to https://github.com/settings/codespaces
+4. **Codespaces secrets** → **New secret**
    - Name: `AWS_ACCESS_KEY_ID`
    - Value: your Access Key ID provided
    - Repository access: search for and select **`sergiuvoicu/CloudComputingSummerSchool`**
    - **Add secret**
-3. **New secret** again
+5. **New secret** again
    - Name: `AWS_SECRET_ACCESS_KEY`
    - Value: your Secret Access Key provided
    - Repository access: search for and select **`sergiuvoicu/CloudComputingSummerSchool`**
    - **Add secret**
-
+6. **New secret** again
+   - Name: `AWS_SESSION_TOKEN`
+   - Value: your Secret Access Key provided
+   - Repository access: search for and select **`sergiuvoicu/CloudComputingSummerSchool`**
+   - **Add secret**
 ---
 
-## Step 2 — Create your codespace
+## Step 2 - Create your codespace
 
 1. Open https://github.com/sergiuvoicu/CloudComputingSummerSchool
 2. **Code** → **Codespaces** tab → **Create codespace on main**
 
 ---
 
-## Step 3 — Wait for setup (~5 minutes), then deploy
+## Step 3 - Wait for setup (~5 minutes), then deploy
 
 1. Wait until the terminal shows:
-   - `✅ AWS credentials OK — account <number>, region eu-north-1`
+   - `✅ AWS credentials OK - account <number>, region eu-north-1`
    - `✅ Environment ready.`
 2. If you don't see the banner, run:
    ```bash
@@ -55,13 +65,13 @@ Do this **before** Step 2. Names must match exactly (uppercase).
 
 ## Closing your codespace
 
-**Stop** (between sessions — keeps your files, frees compute):
+**Stop** (between sessions - keeps your files, frees compute):
 
 - Bottom-left corner → click the codespace name → **Stop Current Codespace**
 - Or go to https://github.com/codespaces, find your codespace, click the **`...`**
   (three-dot menu) on its right, then click **Stop codespace**
 
-**Delete** (when finished — push your work to Git first):
+**Delete** (when finished - push your work to Git first):
 
 - Go to https://github.com/codespaces, click the **`...`** (three-dot menu) next to your
   codespace, then click **Delete**
