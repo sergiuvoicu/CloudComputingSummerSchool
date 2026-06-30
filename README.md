@@ -8,16 +8,17 @@
 - The **course repository** link: https://github.com/sergiuvoicu/CloudComputingSummerSchool
 - A **unique stage name** within the class - recommended: first 3 letters of your first
   name + first 3 letters of your last name (e.g. Sergiu Voicu → `servoi`)
-- Access the mail sent to you with the invitation to register to the AWS Account
-- Configure your profile
+- **Access the mail sent to you** -> **Copy the username** (you will need it later to sign in) -> Set a new **password**
 
 ---
 
 ## Step 1 - Add your AWS keys as Codespaces secrets
 
 Do this **before** Step 2. Names must match exactly (uppercase).
-1. Access `https://ssoins-65082f5cc24fe672.portal.eu-north-1.app.aws` and login with the configured profile
+1. Access https://ssoins-65082f5cc24fe672.portal.eu-north-1.app.aws and login with the configured profile
 2. Copy the Access Key ID, Secret Access Key and Session Token by opening "Access keys"
+    ![alt text](images/github_settings.png)
+    ![alt text](images/github_codespaces_settings.png)
     ![alt text](images/login_to_account.png)
     ![alt text](images/login_secrets.png)
 
@@ -43,6 +44,7 @@ Do this **before** Step 2. Names must match exactly (uppercase).
 
 1. Open https://github.com/sergiuvoicu/CloudComputingSummerSchool
 2. **Code** → **Codespaces** tab → **Create codespace on main**
+    ![alt text](images/create_codespace.png)
 
 ---
 
@@ -85,12 +87,13 @@ Stop between sessions. Delete only after you've pushed any work you want to keep
 - On GitHub, open the repo's postman/ folder: https://github.com/sergiuvoicu/CloudComputingSummerSchool/tree/main/postman
 - Click the collection file → on the file page click the Download raw file button (the download icon, top-right of the file view). Repeat for the environment file.
 - In desktop Postman → Import (top-left) → drag in (or browse to) the two downloaded files → Import.
+    ![alt text](images/postman_import.png)
 - Top-right environment dropdown → select the imported environment.
 - Update the environment values as such:
     - Populate STAGE with the name you chose for your stack
-    - To populate the API_ID, login to your AWS user, go to Search -> API Gateway -> Look for summerschool-<your-stack-name> -> take the corresponding ID
+    - To populate the API_ID, login to your AWS user, go to Search -> API Gateway -> Look for summerschool-`your-stack-name` -> take the corresponding ID
     ![alt text](images/api_id.png)
-    - To populate the API_KEY, login to your AWS user, go to Search -> API Gateway -> API Keys (left side) -> Look for summerschool-<your-stack-name> -> take the corresponding ID
+    - To populate the API_KEY, login to your AWS user, go to Search -> API Gateway -> API Keys (left side) -> Look for summerschool-`your-stack-name` -> take the corresponding API Key
     ![alt text](images/api_key.png)
 - Make sure you save the environment and you have it selected (top right). You can now send a request
     ![alt text](images/postman.png)
@@ -115,7 +118,7 @@ api keys:
 When testing your endpoint in postman, add a header named `x-api-key` set to that `<your-secret-key>`
 value.
 
-# Local Serverless Setup
+# Local Serverless Setup (Out of Summer School scope)
 ## Prerequisites
 ### MacOS
 1. Install git https://git-scm.com/
@@ -138,7 +141,7 @@ value.
     2. `wsl --install -d Ubuntu-20.04`
     3. Install the WSL extension for VSCode - Optional
     4. Open a terminal and check installation by `wslconfig /l`
-5. Go to VSCode and open a WSL terminal. If it does not work due to trying to open it using bash, go to C/Users/<user>/     AppData/Roaming/Code/User/settings.json and there paste:
+5. Go to VSCode and open a WSL terminal. If it does not work due to trying to open it using bash, go to C/Users/`user`/AppData/Roaming/Code/User/settings.json and there paste:
 ```
     "terminal.integrated.profiles.windows": {
         "Ubuntu-20.04": {
@@ -188,11 +191,11 @@ value.
 3. Check installation by `./node_modules/.bin/serverless --version`
 4. Optional: npm install -g serverless@3.40.0
 5. Rename .envrc2 to .envrc
-    1. Set PROJ_NAME=<your-stack-name>
-    2. Set AWS_DEFAULT_REGION=eu-north-1
-    3. Set AWS_REGION=eu-north-1
-    4. Set environment=summerschool_<your-stack-name>_
-    5. Set aws_account_id=<your_account_id>
+    1. Set PROJ_NAME=`your-stack-name`
+    2. Set AWS_DEFAULT_REGION=`eu-north-1`
+    3. Set AWS_REGION=`eu-north-1`
+    4. Set environment=summerschool_`your-stack-name`_
+    5. Set aws_account_id=`your_account_id`
 5. `sudo apt-get install dos2unix`
 6. `dos2unix .envrc`
 5. Run direnv allow in the terminal
