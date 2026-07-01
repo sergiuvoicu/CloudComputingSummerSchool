@@ -2,13 +2,12 @@
 
 ## Prerequisites
 
+- **Access the mail sent to you** -> **Copy the username** (you will need it later to sign in) -> Set a new **password**
 - A **GitHub account** - sign up at https://github.com/signup
-- Your **AWS access keys** (Access Key ID + Secret Access Key) - provided by your instructor
 - **Postman** installed - download at https://www.postman.com/downloads/
 - The **course repository** link: https://github.com/sergiuvoicu/CloudComputingSummerSchool
 - A **unique stage name** within the class - recommended: first 3 letters of your first
   name + first 3 letters of your last name (e.g. Sergiu Voicu → `servoi`)
-- **Access the mail sent to you** -> **Copy the username** (you will need it later to sign in) -> Set a new **password**
 
 ---
 
