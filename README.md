@@ -62,11 +62,13 @@ Do this **before** Step 2. Names must match exactly (uppercase).
     ![alt text](images/postman_import.png)
 5. Top-right environment dropdown → select the imported environment.
 6. Update the environment values as such:
+    ![alt text](images/postman_environment_setup.png)
     - Populate STAGE with the name you chose for your stack
     - To populate the API_ID, login to your AWS user, go to Search -> API Gateway -> Look for summerschool-`your-stack-name` -> take the corresponding ID
     ![alt text](images/api_id.png)
     - To populate the API_KEY, login to your AWS user, go to Search -> API Gateway -> API Keys (left side) -> Look for summerschool-`your-stack-name` -> take the corresponding API Key
     ![alt text](images/api_key.png)
+
 7. Make sure you save the environment and you have it selected (top right). You can now send a request
     ![alt text](images/postman.png)
 
