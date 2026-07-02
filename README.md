@@ -34,7 +34,7 @@ Do this **before** Step 2. Names must match exactly (uppercase).
    - **Add secret**
 6. **New secret** again
    - Name: `AWS_SESSION_TOKEN`
-   - Value: your Secret Access Key provided
+   - Value: your Session Token provided
    - Repository access: search for and select **`sergiuvoicu/CloudComputingSummerSchool`**
    - **Add secret**
 ---
