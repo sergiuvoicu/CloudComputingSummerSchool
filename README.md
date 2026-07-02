@@ -4,67 +4,92 @@
 
 - **Access the mail sent to you** -> **Copy the username** (you will need it later to sign in) -> Set a new **password**
 - A **GitHub account** - sign up at https://github.com/signup
-- **Postman** installed - download at https://www.postman.com/downloads/
+- **Postman** installed - download at https://www.postman.com/downloads/ or access via web: https://web.postman.co
+- A **Postman** account - create after installation on in web version: https://web.postman.co
 - The **course repository** link: https://github.com/sergiuvoicu/CloudComputingSummerSchool
 - A **unique stage name** within the class - recommended: first 3 letters of your first
   name + first 3 letters of your last name (e.g. Sergiu Voicu → `servoi`)
 
 ---
 
-## Step 1 - Add your AWS keys as Codespaces secrets
+## Step 1 - Add your AWS keys as CodeSpaces secrets
 
 Do this **before** Step 2. Names must match exactly (uppercase).
-1. Access https://ssoins-65082f5cc24fe672.portal.eu-north-1.app.aws and login with the configured profile
-2. Copy the Access Key ID, Secret Access Key and Session Token by opening "Access keys"
-    ![alt text](images/github_settings.png)
-    ![alt text](images/github_codespaces_settings.png)
-    ![alt text](images/login_to_account.png)
-    ![alt text](images/login_secrets.png)
-
-3. Go to https://github.com/settings/codespaces
-4. **Codespaces secrets** → **New secret**
+1. Go to https://github.com/settings/codespaces
+2. **CodeSpaces secrets** → **New secret**
    - Name: `AWS_ACCESS_KEY_ID`
-   - Value: your Access Key ID provided
+   - Value: The Access Key ID provided by your instructor
    - Repository access: search for and select **`sergiuvoicu/CloudComputingSummerSchool`**
    - **Add secret**
-5. **New secret** again
+3. **New secret** again
    - Name: `AWS_SECRET_ACCESS_KEY`
-   - Value: your Secret Access Key provided
+   - Value: The Secret Access Key provided by your instructor
    - Repository access: search for and select **`sergiuvoicu/CloudComputingSummerSchool`**
    - **Add secret**
-6. **New secret** again
-   - Name: `AWS_SESSION_TOKEN`
-   - Value: your Session Token provided
-   - Repository access: search for and select **`sergiuvoicu/CloudComputingSummerSchool`**
-   - **Add secret**
+4. Access https://ssoins-65082f5cc24fe672.portal.eu-north-1.app.aws and login with the configured profile
+
 ---
 
-## Step 2 - Create your codespace
+## Step 2 - Create your CodeSpace
 
 1. Open https://github.com/sergiuvoicu/CloudComputingSummerSchool
 2. **Code** → **Codespaces** tab → **Create codespace on main**
     ![alt text](images/create_codespace.png)
+3. **Wait** until the terminal shows:
+  - `✅ AWS credentials OK - account <number>, region eu-north-1`
+  - `✅ Environment ready.`
 
+**Note:** If you are using the Safari browser, the CodeSpace creation might not work, try with a different browser.
+
+### Troubleshooting
+| Symptom | Fix |
+|---|---|
+| No `✅ Environment ready` banner or ⚠️ AWS credentials warning | Run `aws s3 ls`. If the message reads: `aws: [ERROR]: An error occurred (ExpiredToken) when calling the ListBuckets operation: The provided token has expired.` please run `bash .devcontainer/post-create.sh` **OR** Access the CodeSpaces and Press CMD / CTRL + Shift + P -> Rebuild Container -> Full Rebuild. For other errors, contact your instructor |
+| `{"message":"Forbidden"}` when testing | Add the `x-api-key` header with your API key (see note below) |
+| Deploy permission errors | Contact your instructor |
 ---
 
-## Step 3 - Wait for setup (~5 minutes), then deploy
+## Step 3 - Deploy to the AWS Account & Test
 
-1. Wait until the terminal shows:
-   - `✅ AWS credentials OK - account <number>, region eu-north-1`
-   - `✅ Environment ready.`
-2. If you don't see the banner, run:
+1. Deploy (replace `your-stage` with your stage name):
    ```bash
-   bash .devcontainer/post-create.sh
+   ./node_modules/.bin/serverless deploy --stage your-stage --region eu-north-1 --config serverless.yml
    ```
-3. Deploy (replace `<your-stage>` with your stage name):
-   ```bash
-   ./node_modules/.bin/serverless deploy --stage <your-stage> --region eu-north-1 --config serverless.yml
-   ```
-4. Wait for the `endpoints:` section with your API URL.
 
+2. On GitHub, open the repo's postman/ folder: https://github.com/sergiuvoicu/CloudComputingSummerSchool/tree/main/postman
+3. Click the collection file → on the file page click the Download raw file button (the download icon, top-right of the file view). Repeat for the environment file.
+4. In desktop Postman → Import (top-left) → drag in (or browse to) the two downloaded files → Import.
+    ![alt text](images/postman_import.png)
+5. Top-right environment dropdown → select the imported environment.
+6. Update the environment values as such:
+    - Populate STAGE with the name you chose for your stack
+    - To populate the API_ID, login to your AWS user, go to Search -> API Gateway -> Look for summerschool-`your-stack-name` -> take the corresponding ID
+    ![alt text](images/api_id.png)
+    - To populate the API_KEY, login to your AWS user, go to Search -> API Gateway -> API Keys (left side) -> Look for summerschool-`your-stack-name` -> take the corresponding API Key
+    ![alt text](images/api_key.png)
+7. Make sure you save the environment and you have it selected (top right). You can now send a request
+    ![alt text](images/postman.png)
+
+**Note:** **Finding your API key:** after deploying, the terminal prints an `api keys:` section like:
+```
+api keys:
+  summerschool_servoi_apikey: your-secret-key - Key for servoi
+```
+
+When testing your endpoint in Postman, add a header named `x-api-key` set to that `your-secret-key`
+value.
+
+### Troubleshooting
+| Symptom | Fix |
+|---|---|
+| `python3.13` runtime warning on deploy | Ignore it |
+| `{"message":"Forbidden"}` when testing | Add the `x-api-key` header with your API key (see note below) |
+| Deploy permission errors | Contact your instructor |
 ---
 
-## Closing your codespace
+## Cleanup
+
+### Closing your codespace
 
 **Stop** (between sessions - keeps your files, frees compute):
 
@@ -81,41 +106,11 @@ Stop between sessions. Delete only after you've pushed any work you want to keep
 
 ---
 
-## Step 4 Postman Setup
-
-- On GitHub, open the repo's postman/ folder: https://github.com/sergiuvoicu/CloudComputingSummerSchool/tree/main/postman
-- Click the collection file → on the file page click the Download raw file button (the download icon, top-right of the file view). Repeat for the environment file.
-- In desktop Postman → Import (top-left) → drag in (or browse to) the two downloaded files → Import.
-    ![alt text](images/postman_import.png)
-- Top-right environment dropdown → select the imported environment.
-- Update the environment values as such:
-    - Populate STAGE with the name you chose for your stack
-    - To populate the API_ID, login to your AWS user, go to Search -> API Gateway -> Look for summerschool-`your-stack-name` -> take the corresponding ID
-    ![alt text](images/api_id.png)
-    - To populate the API_KEY, login to your AWS user, go to Search -> API Gateway -> API Keys (left side) -> Look for summerschool-`your-stack-name` -> take the corresponding API Key
-    ![alt text](images/api_key.png)
-- Make sure you save the environment and you have it selected (top right). You can now send a request
-    ![alt text](images/postman.png)
-
-## Troubleshooting
-
-| Symptom | Fix |
-|---|---|
-| No `✅ Environment ready` banner | Run `bash .devcontainer/post-create.sh` |
-| ⚠️ AWS credentials warning | Re-check both secrets + repo access (Step 1), then press `Ctrl`/`Cmd`+`Shift`+`P`, type **Rebuild Container** in the search box, and click it |
-| `python3.13` runtime warning on deploy | Ignore it |
-| `{"message":"Forbidden"}` when testing | Add the `x-api-key` header with your API key (see note below) |
-| Deploy permission errors | Contact your instructor |
-
-**Finding your API key:** after deploying, the terminal prints an `api keys:` section like:
-
-```
-api keys:
-  summerschool_servoi_apikey: <your-secret-key> - Key for servoi
+### Remove serverless stack
+```bash
+./node_modules/.bin/serverless remove --stage your-stage --region eu-north-1
 ```
 
-When testing your endpoint in postman, add a header named `x-api-key` set to that `<your-secret-key>`
-value.
 
 # Local Serverless Setup (Out of Summer School scope)
 ## Prerequisites
