@@ -7,8 +7,8 @@
 - **Postman** installed - download at https://www.postman.com/downloads/ or access via web: https://web.postman.co
 - A **Postman** account - create after installation on in web version: https://web.postman.co
 - The **course repository** link: https://github.com/sergiuvoicu/CloudComputingSummerSchool
-- A **unique stage name** within the class - recommended: first 3 letters of your first
-  name + first 3 letters of your last name (e.g. Sergiu Voicu → `servoi`)
+- A **unique stage name** within the class: your username
+- Read the rest of the documentation
 
 ---
 
@@ -49,7 +49,7 @@ Do this **before** Step 2. Names must match exactly (uppercase).
 | Deploy permission errors | Contact your instructor |
 ---
 
-Ignore the following linter warnings:
+#### Ignore the following linter warnings:
 ![alt text](images/mongo_linter_err.png)
 ![alt text](images/yml_linter_err.png)
 ![alt text](images/region_linter_err.png)
