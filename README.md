@@ -49,6 +49,11 @@ Do this **before** Step 2. Names must match exactly (uppercase).
 | Deploy permission errors | Contact your instructor |
 ---
 
+Ignore the following linter warnings:
+![alt text](images/mongo_linter_err.png)
+![alt text](images/yml_linter_err.png)
+![alt text](images/region_linter_err.png)
+
 ## Step 3 - Deploy to the AWS Account & Test
 
 1. Deploy (replace `your-stage` with your stage name):
