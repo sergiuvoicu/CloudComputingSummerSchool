@@ -53,6 +53,36 @@ curl -X POST -H "x-api-key: YOUR_KEY" -H "Content-Type: application/json" \
 The table needs both `firstName` and `lastName` (they're the key), so always include them.
 Confirm the item appears in your `summerschool_<stage>_customers` table.
 
+**Validation:**
+
+#### 1. Verify the API Gateway endpoint
+
+From the AWS Console, use the search bar and navigate to "API Gateway"
+
+![API Gateway Search](images/api_gateway1.png)
+
+Open the API named `summerschool-<stage>`.
+
+![Choose your API](images/api_gateway2.png)
+
+Verify that the POST method has been created for the `/upsert-customer` resource
+
+![POST Method](images/api_gateway3.png)
+
+#### 2. Create a customer record - Invoke the endpoint (or do this prior to the first step)
+
+#### 3. Verify the item in DynamoDB
+
+From the AWS Console, use the search bar and navigate to "DynamoDB"
+
+![DynamoDB Search](images/dynamodb1.png)
+
+In the left navigation menu, select Explore items and open the `summerschool_<stage>_customers` table
+
+![Validate entry](images/dynamodb2.png)
+
+Confirm that the customer record you submitted is present in the table
+
 ---
 
 ## Exercise 2 - Deploy the Generate Report function
@@ -76,6 +106,34 @@ its IAM (`iam/S3BucketIAM.yml`).
 
 **Done when:** the deploy succeeds, `GET /generate-report` (with your key) returns success,
 and a CSV appears in `s3://summerschool-<stage>/SummerSchool/Reports/`.
+
+**Validation:**
+
+#### 1. Generate the report
+
+Invoke the `GET /generate-report` endpoint using your API key
+
+A successful response indicates that the Lambda function has scanned the customer records and generated a report
+
+#### 2. Verify the report in S3
+
+From the AWS Console, use the search bar and navigate to "S3"
+
+![S3 Search](images/s31.png)
+
+Open the bucket named `summerschool-<stage>`
+
+![S3 Bucket Selection](images/s32.png)
+
+Navigate to: `summerschool-<stage>/SummerSchool/Reports/`
+
+![S3 Navigate](images/s33.png)
+
+#### 3. Validate the generated data
+
+Download the CSV file and confirm that it contains the customer records previously inserted into the summerschool_<stage>_customers DynamoDB table
+
+![S3 View Report](images/s34.png)
 
 ---
 
